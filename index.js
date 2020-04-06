@@ -38,9 +38,15 @@ function checkIdExist(req, res, next) {
 //Certifique-se de enviar tanto o ID quanto o título do projeto no formato string com aspas duplas.
 
 server.post("/projects", (req, res) => {
-  const projeto = req.body;
+  const { id, title } = req.body;
 
-  projects.push(projeto);
+  const project = {
+    id,
+    title,
+    tasks: [],
+  };
+
+  projects.push(project);
 
   return res.json(projects);
 });
@@ -76,15 +82,14 @@ server.delete("/projects/:index", checkIdExist, (req, res) => {
 //tarefas de um projeto específico escolhido através do id presente nos parâmetros da rota;
 
 server.post("/projects/:index/tasks", checkIdExist, (req, res) => {
-  const { title } = req.body;
-  const { task } = req.body;
+  const { title, task } = req.body;
   const { index } = req.params;
 
   projects[index].title = title;
 
-  projects[index].task.push(task);
+  projects[index].tasks.push(task);
 
-  return res.json(projects[index]);
+  return res.json(projects);
 });
 
 server.listen(3001);
