@@ -30,10 +30,6 @@ function checkIdExist(req, res, next) {
   return next();
 }
 
-server.get("/", (req, res) => {
-  return res.json({"message":"Bem vindo a api de testes"}).status(200);
-});
-
 //POST /projects
 
 server.post("/projects", (req, res) => {
